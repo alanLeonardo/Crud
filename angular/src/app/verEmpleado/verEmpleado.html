@@ -1,0 +1,35 @@
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">NombreCompleto</th>
+        <th scope="col">Email</th>
+        <th scope="col">DNI</th>
+        <th scope="col">FechaDeNacimiento</th>
+        <th scope="col">Saldo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let empleado of empleados; index as i">
+        <td>
+          {{ empleado.nombreYApellido }}
+        </td>
+        <td>
+          {{ empleado.email }}
+        </td>
+        <td>
+          {{ empleado.dni }}
+        </td>
+        <td>
+          {{ empleado.fechaDeNacimiento }}
+        </td>
+        <td>
+          {{ empleado.saldo }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <button routerLink="addEmpleado"> Agregar Empleado</button>
+  </div>
+</div>
