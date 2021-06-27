@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -21,11 +20,11 @@ export class EmpleadoService {
   }
 
   create(data): Observable<any> {
-    return this.http.post(baseUrl, data);
+    return this.http.post(baseUrl, JSON.parse(JSON.stringify(data)));
   }
 
   update(id, data): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+    return this.http.put(`${baseUrl}/${id}`, JSON.parse(JSON.stringify(data)));
   }
 
   delete(id): Observable<any> {

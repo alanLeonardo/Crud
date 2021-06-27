@@ -6,11 +6,12 @@
         <th scope="col">Email</th>
         <th scope="col">DNI</th>
         <th scope="col">FechaDeNacimiento</th>
-        <th scope="col">Saldo</th>
+        <th scope="col">Sueldo</th>
+        <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let empleado of empleados; index as i">
+      <tr *ngFor="let empleado of empleados">
         <td>
           {{ empleado.nombreYApellido }}
         </td>
@@ -24,12 +25,17 @@
           {{ empleado.fechaDeNacimiento }}
         </td>
         <td>
-          {{ empleado.saldo }}
+          {{ empleado.sueldo }}
+        </td>
+        <td>
+          <button (click)="eliminarEmpleado(empleado.id)" class="btn btn-danger">Borrar</button>
+          <button (click)="modificarEmpleado(empleado)" class="btn btn-info"
+            style="margin-left: 10px">Modificar</button>
         </td>
       </tr>
     </tbody>
   </table>
   <div>
-    <button routerLink="addEmpleado"> Agregar Empleado</button>
+    <button class="btn btn-primary" (click)="agregarEmpleado()"> Agregar Empleado</button>
   </div>
 </div>

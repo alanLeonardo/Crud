@@ -19,7 +19,7 @@ class CreateEmpleadosTable extends Migration
             $table->string('email')->unique();
             $table->integer('dni')->unique(); 
             $table->date('fechaDeNacimiento');
-            $table->integer('saldo');
+            $table->integer('sueldo');
             $table->timestamps();
         });
     }
