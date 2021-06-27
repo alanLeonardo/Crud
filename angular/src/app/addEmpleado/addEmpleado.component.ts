@@ -1,57 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadoService } from '../api/EmpleadoService';
-
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: 'add-empleado-card',
+    selector: 'add-empleado',
     templateUrl: './addEmpleado.html',
     styleUrls: ['./addEmpleado.css']
   })
   
 export class AddEmpleadoComponent implements OnInit {
-  empleado = {
-    nombreYApellido: '',
-    email: '',
-    dni: 0,
-    fechaDeNacimiento: '',
-    saldo: 0
-  };
-  enviar = false;
 
-  constructor(private empleadoService: EmpleadoService) { }
+  empleadoForm: FormGroup;
+  submitted = false;
+
+  constructor(private empleadoService: EmpleadoService,public fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
+
+  this.empleadoForm = this.fb.group({
+    nombreYApellido: [''],
+    email: [''],
+    dni: [0],
+    fechaDeNacimiento: [''],
+    sueldo: [0]
+  });
+  
   }
 
   addEmpleado(): void {
-    const data = {
-      nombreYApellido: this.empleado.nombreYApellido,
-      email: this.empleado.email,
-      dni: this.empleado.dni,
-      fechaDeNacimiento: this.empleado.fechaDeNacimiento,
-      saldo: this.empleado.saldo
-    };
 
-    this.empleadoService.create(data)
+    this.empleadoService.create(this.empleadoForm.getRawValue())
       .subscribe(
         response => {
+          response;
           console.log(response);
-          this.enviar = true;
+          this.volver();
         },
         error => {
           console.log(error);
         });
+       
   }
 
-  newEmpleado(): void {
-    this.enviar = false;
-    this.empleado = {
-      nombreYApellido: '',
-      email: '',
-      dni: 0,
-      fechaDeNacimiento: '',
-      saldo: 0
-    };
+  volver() {
+    this.router.navigate(['/home']);
+  }
+ 
+  onSubmit() {
+    this.submitted = true;
+    this.addEmpleado();    
   }
 
 }

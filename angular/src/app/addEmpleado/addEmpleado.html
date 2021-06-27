@@ -1,26 +1,33 @@
 <div class="container">
-  <Form >
+  <Form [formGroup]="empleadoForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="exampleInputNombreCompleto">Nombre completo</label>
-      <input type="nombreCompleto" class="form-control" id="exampleInputNombreCompleto"
-        aria-describedby="nombreCompletolHelp">
+      <label for="exampleInputNombreCompleto">Nombre y Apellido</label>
+      <input type="nombreYApellido" class="form-control" formControlName="nombreYApellido"
+        id="exampleInputNombreYApellido" aria-describedby="nombreYApellidolHelp">
     </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Email</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1"
+        aria-describedby="emailHelp">
     </div>
     <div class="form-group">
       <label for="exampleInputFechaDeNacimiento">Fecha de nacimiento</label>
-      <input type="FechaDeNacimiento" class="form-control" id="exampleInputFechaDeNacimiento">
+      <input type="FechaDeNacimiento" class="form-control" formControlName="fechaDeNacimiento"
+        id="exampleInputFechaDeNacimiento">
     </div>
     <div class="form-group">
       <label for="exampleInputDni">DNI</label>
-      <input type="DNI" class="form-control" id="exampleInputDni">
+      <input type="DNI" class="form-control" formControlName="dni" id="exampleInputDni">
     </div>
     <div class="form-group">
       <label for="exampleInputSueldo">Sueldo</label>
-      <input type="Sueldo" class="form-control" id="exampleInputSueldo">
+      <input type="sueldo" class="form-control" formControlName="sueldo" id="exampleInputSueldo">
     </div>
-    <button (click)="addEmpleado()" type="submit" class="btn btn-primary">Agregar</button>
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+      <button type="submit" class="btn btn-primary">Agregar</button>
+    </div>
+    <div class="btn-group" role="group" aria-label="Third group">
+      <button (click)="volver()" type="submit" class="btn btn-secondary">Volver</button>
+    </div>
   </Form>
 </div>

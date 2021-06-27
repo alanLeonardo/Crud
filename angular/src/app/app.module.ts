@@ -3,17 +3,20 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { VerEmpleado } from './verEmpleado/verEmpleado.component';
+import { VerEmpleadoComponent } from './verEmpleado/verEmpleado.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddEmpleadoComponent } from './addEmpleado/addEmpleado.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UpdateEmpleadoComponent } from './updateEmpleado/updateEmpleado.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VerEmpleado,
-    AddEmpleadoComponent
+    VerEmpleadoComponent,
+    AddEmpleadoComponent,
+    UpdateEmpleadoComponent
 
   ],
   imports: [
@@ -21,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

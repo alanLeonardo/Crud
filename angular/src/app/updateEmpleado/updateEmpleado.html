@@ -1,0 +1,33 @@
+<div class="container">
+    <Form [formGroup]="empleadoForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="exampleInputNombreCompleto">Nombre y Apellido</label>
+            <input [(ngModel)]="empleado.nombreYApellido" name="nombreYApellido" type="text" class="form-control"
+                formControlName="nombreYApellido">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <input [(ngModel)]="empleado.email" name="email" type="email" class="form-control" formControlName="email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFechaDeNacimiento">Fecha de nacimiento</label>
+            <input [(ngModel)]="empleado.fechaDeNacimiento" name="fechaDeNacimiento" type="FechaDeNacimiento"
+                class="form-control" formControlName="fechaDeNacimiento">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputDni">DNI</label>
+            <input [(ngModel)]="empleado.dni" name="dni" type="DNI" class="form-control" formControlName="dni">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputSueldo">Sueldo</label>
+            <input [(ngModel)]="empleado.sueldo" name="sueldo" type="sueldo" class="form-control"
+                formControlName="sueldo">
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="Second group">
+            <button type="submit" class="btn btn-primary">Modificar</button>
+        </div>
+        <div class="btn-group" role="group" aria-label="Third group">
+            <button (click)="volverAHome()" type="submit" class="btn btn-secondary">Volver</button>
+        </div>
+    </Form>
+</div>

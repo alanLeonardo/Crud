@@ -1,25 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddEmpleadoComponent } from './addEmpleado/addEmpleado.component'
-import { VerEmpleado } from './verEmpleado/verEmpleado.component';
+import { VerEmpleadoComponent } from './verEmpleado/verEmpleado.component';
+import { UpdateEmpleadoComponent } from './updateEmpleado/updateEmpleado.component';
 
 const routes: Routes = [
+ 
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
-
-  { 
-    path: 'home', component: VerEmpleado
+   path: '',
+   redirectTo: 'home',
+   pathMatch: 'full'
   },
   { 
-    path: 'addEmpleado', component: AddEmpleadoComponent
+    path: 'home', component: VerEmpleadoComponent
   },
   { 
-    path: 'addEmpleado/:id', component: AddEmpleadoComponent
+    path: 'add', component: AddEmpleadoComponent
+  },
+  { 
+    path: 'update/:id', component: UpdateEmpleadoComponent
   }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
