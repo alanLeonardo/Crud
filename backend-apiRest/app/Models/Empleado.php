@@ -9,5 +9,11 @@ class Empleado extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombreYApellido','email','dni','fechaDeNacimiento','sueldo'];
+    protected $fillable = ['nombreYApellido','email','dni','fechaDeNacimiento','sueldo','area_trabajo_id'];
+   
+    public function areaTrabajo()
+    {
+        return $this->belongsTo(AreaTrabajo::class);
+    }
+
 }
