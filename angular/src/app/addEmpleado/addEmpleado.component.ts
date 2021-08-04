@@ -3,7 +3,7 @@ import { EmpleadoService } from '../api/EmpleadoService';
 import { AreaTrabajoService } from '../api/AreaTrabajoService';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'add-empleado',
@@ -46,7 +46,7 @@ export class AddEmpleadoComponent implements OnInit {
 
   validation_AreaTrabajo_message = {
     'areaTrabajo': [
-      { type: 'required', message: 'Tiene que seleccionar un area de trabajo es campo un obligatorio' }
+      { type: 'min', message: 'Tiene que seleccionar un area de trabajo es campo un obligatorio' }
     ]
   }
   constructor(private empleadoService: EmpleadoService, private areaTrabajoService: AreaTrabajoService, public fb: FormBuilder, private router: Router) { }
@@ -55,7 +55,7 @@ export class AddEmpleadoComponent implements OnInit {
 
     this.getAreasTrabajos();
     this.areaTrabajoForm = this.fb.group({
-      areaTrabajo: new FormControl(0, Validators.required)
+      areaTrabajo: new FormControl(0, Validators.min(1))
     });
 
     console.log(this.areaTrabajoForm);
@@ -63,30 +63,31 @@ export class AddEmpleadoComponent implements OnInit {
     this.empleadoForm = this.fb.group({
       nombreYApellido: new FormControl('', [Validators.required, Validators.maxLength(30), Validators.pattern("^([a-zA-Z]+[,.]?[ ]?|[a-zA-Z]+['-]?)+$")]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      dni: new FormControl(0, [Validators.required ,Validators.pattern("^[0-9]{8}$")]),
+      dni: new FormControl(0, [Validators.required, Validators.pattern("^[0-9]{8}$")]),
       fechaDeNacimiento: new FormControl('', Validators.required),
-      sueldo: new FormControl(0, [Validators.required,Validators.min(0)]),
+      sueldo: new FormControl(0, [Validators.required, Validators.min(0)]),
       areaTrabajo: new FormControl(0, Validators.min(1))
     });
   }
 
-  numberValidation(control: FormControl): {[key: string]: any} {
+  numberValidation(control: FormControl): { [key: string]: any } {
     const value: string = control.value || '';
     const valid = value.match(/^\d{8}$/);
-    return valid ? null : {ssn: true};
+    return valid ? null : { ssn: true };
   }
 
   empleado() {
-   
-    let empleado = {
+
+    let empleado = {};
+
+    empleado = {
       nombreYApellido: this.empleadoForm.getRawValue().nombreYApellido,
       email: this.empleadoForm.getRawValue().email,
       dni: this.empleadoForm.getRawValue().dni,
       fechaDeNacimiento: this.empleadoForm.getRawValue().fechaDeNacimiento,
       sueldo: this.empleadoForm.getRawValue().sueldo,
-      area_trabajo: this.empleadoForm.getRawValue().areaTrabajo.id
+      area_trabajo_id: this.empleadoForm.getRawValue().areaTrabajo.id
     }
-    console.log(this.empleadoForm.getRawValue());
     console.log(empleado);
     return empleado;
   }
@@ -100,9 +101,22 @@ export class AddEmpleadoComponent implements OnInit {
           this.volver();
         },
         error => {
-          console.log(error);
+          console.log(error.error.errors);
+          this.errors();
         });
+  }
 
+  errors() {
+
+    return swal.fire({
+      title: 'Error',
+      text: "ocurrio un error al guardar los datos",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar'
+    });
   }
 
   getAreasTrabajos(): void {
@@ -122,14 +136,30 @@ export class AddEmpleadoComponent implements OnInit {
   }
 
   onSubmit() {
-     console.log(this.empleadoForm.get('areaTrabajo').hasError(this.validation_messages.areaTrabajo[0].type));
-
     if (this.empleadoForm.valid) {
       this.submitted = true;
       this.addEmpleado();
+      return swal.fire({
+        title: 'Registro completado',
+        text: "El registro a sido exitos",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar'
+      });
     } else {
-      console.log("los campos no cumple los requerimientos");
+      return swal.fire({
+        title: 'Error',
+        text: "Se debe completar los datos requeridos",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar'
+      });
     }
   }
+
 
 }

@@ -22,8 +22,8 @@
     </div>
     <div class="form-group">
       <label for="exampleInputFechaDeNacimiento">Fecha de nacimiento</label>
-      <input type="date" class="form-control" formControlName="fechaDeNacimiento"
-        id="exampleInputFechaDeNacimiento" placeholder="DD/MM/AAAA">
+      <input type="date" class="form-control" formControlName="fechaDeNacimiento" id="exampleInputFechaDeNacimiento"
+        placeholder="DD/MM/AAAA">
     </div>
     <div class="alert-danger" *ngFor="let validation of validation_messages.fechaDeNacimiento">
       <div
@@ -49,17 +49,18 @@
         class="container-error-message"> {{validation.message}} </div>
     </div>
     <div class="form-group">
-      <div >
+      <div>
         <label for="exampleInputSueldo">Seleccionar un area de trabajo</label>
-      </div>  
-      <select formControlName="areaTrabajo" [formGroup]="areaTrabajoForm">
-        <option [ngValue]="null" disabled>Selecciones una area de trabajo</option>
+      </div>
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" formControlName="areaTrabajo"
+        [formGroup]="areaTrabajoForm">
+        <option [ngValue]="null" disabled selected>Seleccionar un area de trabajo</option>
         <option *ngFor="let areaTrabajo of areasTrabajos" [ngValue]="areaTrabajo">{{ areaTrabajo.nombre }}</option>
       </select>
     </div>
     <div class="alert-danger" *ngFor="let validation of validation_AreaTrabajo_message.areaTrabajo">
       <div
-        *ngIf="empleadoForm.get('areaTrabajo').hasError(validation.type)"
+        *ngIf="empleadoForm.get('areaTrabajo').invalid && (empleadoForm.get('areaTrabajo').dirty || empleadoForm.get('areaTrabajo').touched)"
         class="container-error-message"> {{validation.message}} </div>
     </div>
     <div class="btn-group mr-5" role="group" aria-label="Second group">

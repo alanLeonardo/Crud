@@ -32,7 +32,7 @@ class Empleados2Controller extends Controller
     public function store(CreateEmpleadoRequest $request)
     {  
         $empleado = new Empleado($request->all());
-        
+     
         $empleado->save();
 
         return response()->json(['data'=>$empleado],201);
