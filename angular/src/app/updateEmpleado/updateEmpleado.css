@@ -1,23 +1,24 @@
 nav a {
-    padding: 1rem;
-  }
+  padding: 1rem;
+}
 
 .cardStyle{
-  display: flex;
-  align-items: center;
-  align-self: center;
-  height: 32rem;
-  width: 40rem;
+display: flex;
+align-items: center;
+align-self: center;
+height: 32rem;
+width: 40rem;
 }
 
 
 .container {
-  border: 4px solid #d6d7da;
-  margin: 45px auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 500px;
-  flex-direction: column;
-  width: 50%;
+border: 4px solid #d6d7da;
+margin: 45px auto;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 800px;
+flex-direction: column;
+width: 70%;
 }
+

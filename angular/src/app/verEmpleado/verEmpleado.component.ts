@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadoService } from '../api/EmpleadoService';
+import { AreaTrabajoService } from '../api/AreaTrabajoService'
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,15 +8,11 @@ import { Router } from '@angular/router';
   templateUrl: './verEmpleado.html'
 })
 
-
 export class VerEmpleadoComponent implements OnInit {
 
   empleados: any;
-  currentEmpleados = null;
-  currentIndex = -1;
-  title = '';
 
-  constructor(private empleadoService: EmpleadoService, private router: Router) { }
+  constructor(private empleadoService: EmpleadoService, private areaTrabajoService: AreaTrabajoService, private router: Router) { }
 
   ngOnInit(): void {
     this.listarEmpleados();
@@ -33,6 +30,7 @@ export class VerEmpleadoComponent implements OnInit {
         });
   }
 
+
   eliminarEmpleado(id: number) {
     this.empleadoService.delete(id)
       .subscribe(
@@ -48,7 +46,7 @@ export class VerEmpleadoComponent implements OnInit {
   }
 
   modificarEmpleado(empleado) {
-    this.router.navigate(['update',empleado.id]);
+    this.router.navigate(['update', empleado.id]);
   }
 
 

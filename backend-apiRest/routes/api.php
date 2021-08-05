@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\Empleados2Controller;
 use App\Http\Controllers\Api\EmpleadosController;
+use App\Http\Controllers\Api\AreaTrabajoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['as' => 'api.'], function() {
-    Orion::resource('empleados', EmpleadosController::class);
-});
+//Route::group(['as' => 'api.'], function() {
+  //  Orion::resource('empleados', EmpleadosController::class);
+//});
+
+
+Route::apiResource('empleados', Empleados2Controller::class);
+
+Route::apiResource('areas_trabajos', AreaTrabajoController::class);
+
+
+
+
+
+

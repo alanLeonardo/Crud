@@ -1,29 +1,68 @@
 <div class="container">
-  <Form [formGroup]="empleadoForm" (ngSubmit)="onSubmit()">
+  <Form [formGroup]="empleadoForm" (ngSubmit)="onSubmit()" class="div">
     <div class="form-group">
       <label for="exampleInputNombreCompleto">Nombre y Apellido</label>
       <input type="nombreYApellido" class="form-control" formControlName="nombreYApellido"
         id="exampleInputNombreYApellido" aria-describedby="nombreYApellidolHelp">
     </div>
+    <div class="alert-danger" *ngFor="let validation of validation_messages.nombreYApellido">
+      <div class="container-error-message"
+        *ngIf=" isFieldValid('nombreYApellido') && empleadoForm.get('nombreYApellido').hasError(validation.type)"
+        class="container-error-message"> {{validation.message}} </div>
+    </div>
     <div class="form-group">
       <label for="exampleInputEmail1">Email</label>
       <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1"
-        aria-describedby="emailHelp">
+        aria-describedby="emailHelp" placeholder="noname@gmail.com">
+    </div>
+    <div class="alert-danger" *ngFor="let validation of validation_messages.email">
+      <div class="container-error-message"
+        *ngIf=" isFieldValid('email') && empleadoForm.get('email').hasError(validation.type)"
+        class="container-error-message"> {{validation.message}} </div>
     </div>
     <div class="form-group">
       <label for="exampleInputFechaDeNacimiento">Fecha de nacimiento</label>
-      <input type="FechaDeNacimiento" class="form-control" formControlName="fechaDeNacimiento"
-        id="exampleInputFechaDeNacimiento">
+      <input type="date" class="form-control" formControlName="fechaDeNacimiento" id="exampleInputFechaDeNacimiento">
+    </div>
+    <div class="alert-danger" *ngFor="let validation of validation_messages.fechaDeNacimiento">
+      <div class="container-error-message"
+        *ngIf=" isFieldValid('fechaDeNacimiento') && empleadoForm.get('fechaDeNacimiento').hasError(validation.type)"
+        class="container-error-message"> {{validation.message}} </div>
     </div>
     <div class="form-group">
       <label for="exampleInputDni">DNI</label>
-      <input type="DNI" class="form-control" formControlName="dni" id="exampleInputDni">
+      <input type="number" class="form-control" formControlName="dni" id="exampleInputDni">
+    </div>
+    <div class="alert-danger" *ngFor="let validation of validation_messages.dni">
+      <div class="container-error-message"
+        *ngIf=" isFieldValid('dni') && empleadoForm.get('dni').hasError(validation.type)"
+        class="container-error-message"> {{validation.message}} </div>
     </div>
     <div class="form-group">
       <label for="exampleInputSueldo">Sueldo</label>
-      <input type="sueldo" class="form-control" formControlName="sueldo" id="exampleInputSueldo">
+      <input type="number" class="form-control" formControlName="sueldo" id="exampleInputSueldo">
     </div>
-    <div class="btn-group mr-2" role="group" aria-label="Second group">
+    <div class="alert-danger" *ngFor="let validation of validation_messages.sueldo">
+      <div class="container-error-message"
+        *ngIf=" isFieldValid('sueldo') && empleadoForm.get('sueldo').hasError(validation.type)"
+        class="container-error-message"> {{validation.message}} </div>
+    </div>
+    <div class="form-group">
+      <div>
+        <label for="exampleInputSueldo">Seleccionar un area de trabajo</label>
+      </div>
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" formControlName="areaTrabajo"
+        [formGroup]="areaTrabajoForm">
+        <option [ngValue]="null" disabled selected>Seleccionar un area de trabajo</option>
+        <option *ngFor="let areaTrabajo of areasTrabajos" [ngValue]="areaTrabajo">{{ areaTrabajo.nombre }}</option>
+      </select>
+    </div>
+    <div class="alert-danger" *ngFor="let validation of validation_messages.areaTrabajo">
+      <div class="container-error-message"
+        *ngIf=" isFieldValid('areaTrabajo') && empleadoForm.get('areaTrabajo').hasError(validation.type)"
+        class="container-error-message"> {{validation.message}} </div>
+    </div>
+    <div class="btn-group mr-5" role="group" aria-label="Second group">
       <button type="submit" class="btn btn-primary">Agregar</button>
     </div>
     <div class="btn-group" role="group" aria-label="Third group">
