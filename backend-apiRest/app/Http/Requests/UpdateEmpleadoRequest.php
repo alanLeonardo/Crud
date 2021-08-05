@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class UpdateEmpleadoRequest extends FormRequest
 {
@@ -23,13 +25,16 @@ class UpdateEmpleadoRequest extends FormRequest
      */
     public function rules()
     {
+        $empleado = $this->route('empleado');
+        print " " . "$empleado";
+
         return [
-            'nombreYApellido'    => 'required|string|min:1|max:30',
-            'email'              => 'required|email|unique:empleados',
-            'dni'                => 'required|min:8|max:8',
-            'fechaDeNacimiento'  => 'required|date',
-            'sueldo'             => 'required|min:1',
-            'area_trabajo_id'    => 'required|min:1'
+            'nombreYApellido'    => 'required|string|max:30|regex:/^([a-zA-Z- ñáéíóú]{2,60})$/',
+            'email'              => 'required|email', Rule::unique('empleados', 'email')->ignore($empleado->id),
+            'dni'                => 'required|numeric|digits_between:8,8',
+            'fechaDeNacimiento'  => 'required|date|date_format:Y-m-d',
+            'sueldo'             => 'required|numeric|min:5000',
+            'area_trabajo_id'    => 'required|numeric|exists:areas_trabajos,id'
         ];
     }
 }

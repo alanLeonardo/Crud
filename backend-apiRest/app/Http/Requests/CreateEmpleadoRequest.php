@@ -23,13 +23,14 @@ class CreateEmpleadoRequest extends FormRequest
      */
     public function rules()
     {
+        
         return [
-            'nombreYApellido'    => 'required|string|min:1|max:30',
+            'nombreYApellido'    => 'required|string|max:30|regex:/^([a-zA-Z- ñáéíóú]{2,60})$/',
             'email'              => 'required|email|unique:empleados',
-            'dni'                => 'required|min:8|max:8',
-            'fechaDeNacimiento'  => 'required|date',
-            'sueldo'             => 'required|min:1',
-            'area_trabajo_id'    => 'required|min:1'
+            'dni'                => 'required|numeric|digits_between:8,8',
+            'fechaDeNacimiento'  => 'required|date|date_format:Y-m-d',
+            'sueldo'             => 'required|numeric|min:5000',
+            'area_trabajo_id'    => 'required|numeric|exists:areas_trabajos,id'
         ];
     }
 }

@@ -3,7 +3,6 @@ import { EmpleadoService } from '../api/EmpleadoService';
 import { AreaTrabajoService } from '../api/AreaTrabajoService';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import swal from 'sweetalert2';
 
 @Component({
   selector: 'add-empleado',
@@ -13,11 +12,11 @@ import swal from 'sweetalert2';
 
 export class AddEmpleadoComponent implements OnInit {
 
-  areasTrabajos: any;
-  empleadoForm: FormGroup;
-  areaTrabajoForm: FormGroup;
-  submitted = false;
-  validation_messages = {
+   areasTrabajos: any;
+   empleadoForm: FormGroup;
+   areaTrabajoForm: FormGroup;
+   submitted = false;
+   validation_messages = {
     'nombreYApellido': [
       { type: 'required', message: 'El campo nombre y apellido es requerido' },
       { type: 'maxlength', message: 'El campo nombre y apellido no puede ser mas largo que 30 caracteres' },
@@ -36,15 +35,8 @@ export class AddEmpleadoComponent implements OnInit {
     ],
     'sueldo': [
       { type: 'required', message: 'El campo sueldo es requerido' },
-      { type: 'min', message: 'El campo sueldo tiene que se un numero positivo' }
+      { type: 'min', message: 'El campo sueldo tiene que se un numero positivo y mayor a 0' }
     ],
-    'areaTrabajo': [
-      //{ type: 'required', message: 'Tiene que seleccionar un area de trabajo es campo un obligatorio' },
-      { type: 'min', message: 'Tiene que seleccionar un area de trabajo es campo un obligatorio' }
-    ]
-  }
-
-  validation_AreaTrabajo_message = {
     'areaTrabajo': [
       { type: 'min', message: 'Tiene que seleccionar un area de trabajo es campo un obligatorio' }
     ]
@@ -65,15 +57,9 @@ export class AddEmpleadoComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       dni: new FormControl(0, [Validators.required, Validators.pattern("^[0-9]{8}$")]),
       fechaDeNacimiento: new FormControl('', Validators.required),
-      sueldo: new FormControl(0, [Validators.required, Validators.min(0)]),
+      sueldo: new FormControl(0, [Validators.required, Validators.min(1)]),
       areaTrabajo: new FormControl(0, Validators.min(1))
     });
-  }
-
-  numberValidation(control: FormControl): { [key: string]: any } {
-    const value: string = control.value || '';
-    const valid = value.match(/^\d{8}$/);
-    return valid ? null : { ssn: true };
   }
 
   empleado() {
@@ -102,21 +88,7 @@ export class AddEmpleadoComponent implements OnInit {
         },
         error => {
           console.log(error.error.errors);
-          this.errors();
         });
-  }
-
-  errors() {
-
-    return swal.fire({
-      title: 'Error',
-      text: "ocurrio un error al guardar los datos",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirmar'
-    });
   }
 
   getAreasTrabajos(): void {
@@ -131,6 +103,31 @@ export class AddEmpleadoComponent implements OnInit {
         });
   }
 
+  todasLasValidacionesDelFomulario(form) {         
+    Object.keys(form.controls).forEach(campo => {  
+      const control = form.get(campo);       
+      console.log(control);      
+      if (control instanceof FormControl) {             
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {        
+        this.todasLasValidacionesDelFomulario(control);            
+      }
+    });
+  }
+
+  isFieldValid(campo) {
+    return !this.empleadoForm.get(campo).valid 
+    && this.empleadoForm.get(campo).touched 
+    || (this.empleadoForm.get(campo).untouched && this.submitted);
+  }
+  
+  displayFieldCss(campo) {
+    return {
+      error: this.isFieldValid(campo),
+    };
+  }
+
+
   volver() {
     this.router.navigate(['/home']);
   }
@@ -139,25 +136,8 @@ export class AddEmpleadoComponent implements OnInit {
     if (this.empleadoForm.valid) {
       this.submitted = true;
       this.addEmpleado();
-      return swal.fire({
-        title: 'Registro completado',
-        text: "El registro a sido exitos",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Confirmar'
-      });
     } else {
-      return swal.fire({
-        title: 'Error',
-        text: "Se debe completar los datos requeridos",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Confirmar'
-      });
+       this.todasLasValidacionesDelFomulario(this.empleadoForm);
     }
   }
 
