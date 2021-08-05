@@ -7,7 +7,7 @@
     </div>
     <div class="alert-danger" *ngFor="let validation of validation_messages.nombreYApellido">
       <div class="container-error-message"
-        *ngIf=" isFieldValid('nombreYApellido') && empleadoForm.get('nombreYApellido').hasError(validation.type)"
+        *ngIf=" esValidacionDeCampo('nombreYApellido') && empleadoForm.get('nombreYApellido').hasError(validation.type)"
         class="container-error-message"> {{validation.message}} </div>
     </div>
     <div class="form-group">
@@ -17,7 +17,7 @@
     </div>
     <div class="alert-danger" *ngFor="let validation of validation_messages.email">
       <div class="container-error-message"
-        *ngIf=" isFieldValid('email') && empleadoForm.get('email').hasError(validation.type)"
+        *ngIf=" esValidacionDeCampo('email') && empleadoForm.get('email').hasError(validation.type)"
         class="container-error-message"> {{validation.message}} </div>
     </div>
     <div class="form-group">
@@ -26,7 +26,7 @@
     </div>
     <div class="alert-danger" *ngFor="let validation of validation_messages.fechaDeNacimiento">
       <div class="container-error-message"
-        *ngIf=" isFieldValid('fechaDeNacimiento') && empleadoForm.get('fechaDeNacimiento').hasError(validation.type)"
+        *ngIf=" esValidacionDeCampo('fechaDeNacimiento') && empleadoForm.get('fechaDeNacimiento').hasError(validation.type)"
         class="container-error-message"> {{validation.message}} </div>
     </div>
     <div class="form-group">
@@ -35,7 +35,7 @@
     </div>
     <div class="alert-danger" *ngFor="let validation of validation_messages.dni">
       <div class="container-error-message"
-        *ngIf=" isFieldValid('dni') && empleadoForm.get('dni').hasError(validation.type)"
+        *ngIf=" esValidacionDeCampo('dni') && empleadoForm.get('dni').hasError(validation.type)"
         class="container-error-message"> {{validation.message}} </div>
     </div>
     <div class="form-group">
@@ -44,7 +44,7 @@
     </div>
     <div class="alert-danger" *ngFor="let validation of validation_messages.sueldo">
       <div class="container-error-message"
-        *ngIf=" isFieldValid('sueldo') && empleadoForm.get('sueldo').hasError(validation.type)"
+        *ngIf=" esValidacionDeCampo('sueldo') && empleadoForm.get('sueldo').hasError(validation.type)"
         class="container-error-message"> {{validation.message}} </div>
     </div>
     <div class="form-group">
@@ -59,7 +59,7 @@
     </div>
     <div class="alert-danger" *ngFor="let validation of validation_messages.areaTrabajo">
       <div class="container-error-message"
-        *ngIf=" isFieldValid('areaTrabajo') && empleadoForm.get('areaTrabajo').hasError(validation.type)"
+        *ngIf=" esValidacionDeCampo('areaTrabajo') && empleadoForm.get('areaTrabajo').hasError(validation.type)"
         class="container-error-message"> {{validation.message}} </div>
     </div>
     <div class="btn-group mr-5" role="group" aria-label="Second group">

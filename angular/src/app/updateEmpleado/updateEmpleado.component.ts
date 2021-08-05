@@ -139,16 +139,10 @@ export class UpdateEmpleadoComponent implements OnInit {
     });
   }
 
-  isFieldValid(campo) {
+  esValidacionDeCampo(campo) {
     return !this.empleadoForm.get(campo).valid
       && this.empleadoForm.get(campo).touched
       || (this.empleadoForm.get(campo).untouched && this.submitted);
-  }
-
-  displayFieldCss(campo) {
-    return {
-      error: this.isFieldValid(campo),
-    };
   }
 
   volverAHome() {
